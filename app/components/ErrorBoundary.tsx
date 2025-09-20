@@ -1,6 +1,4 @@
 import React, { Component, ErrorInfo, ReactNode } from 'react'
-import { Button } from './ui/button'
-import { Badge } from './ui/badge'
 
 interface Props {
   children: ReactNode
@@ -66,7 +64,7 @@ export class ErrorBoundary extends Component<Props, State> {
                 {this.state.error && (
                   <details className="group">
                     <summary className="cursor-pointer list-none">
-                      <Badge variant="outline" className="hover:bg-accent border-border/50">
+                      <div variant="outline" className="hover:bg-accent border-border/50">
                         <svg
                           className="w-4 h-4 mr-1 transition-transform group-open:rotate-180"
                           fill="none"
@@ -76,7 +74,7 @@ export class ErrorBoundary extends Component<Props, State> {
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                         </svg>
                         Error Details
-                      </Badge>
+                      </div>
                     </summary>
                     <div className="mt-3 p-4 bg-muted/50 rounded-lg border border-border/50 text-left">
                       <div className="space-y-2">
@@ -105,7 +103,7 @@ export class ErrorBoundary extends Component<Props, State> {
 
                 {/* Action Buttons */}
                 <div className="flex flex-col sm:flex-row gap-3 pt-2">
-                  <Button onClick={() => window.location.reload()} className="flex-1" size="lg">
+                  <div onClick={() => window.location.reload()} className="flex-1" size="lg">
                     <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path
                         strokeLinecap="round"
@@ -115,8 +113,8 @@ export class ErrorBoundary extends Component<Props, State> {
                       />
                     </svg>
                     Reload Page
-                  </Button>
-                  <Button
+                  </div>
+                  <div
                     variant="outline"
                     onClick={() => this.setState({ hasError: false, error: undefined })}
                     className="flex-1"
@@ -131,7 +129,7 @@ export class ErrorBoundary extends Component<Props, State> {
                       />
                     </svg>
                     Try Again
-                  </Button>
+                  </div>
                 </div>
               </div>
             </div>

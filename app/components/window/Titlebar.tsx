@@ -1,7 +1,4 @@
-import { useEffect } from 'react'
 import { useWindowContext } from './WindowContext'
-import { useTitlebarContext } from './TitlebarContext'
-import { TitlebarMenu } from './TitlebarMenu'
 import { useConveyor } from '@/app/hooks/use-conveyor'
 
 const SVG_PATHS = {
@@ -11,21 +8,9 @@ const SVG_PATHS = {
 } as const
 
 export const Titlebar = () => {
-  const { title, icon, titleCentered, menuItems } = useWindowContext().titlebar
-  const { menusVisible, setMenusVisible, closeActiveMenu } = useTitlebarContext()
+  const { title, icon, titleCentered } = useWindowContext().titlebar
   const { window: wcontext } = useWindowContext()
 
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.altKey && menuItems?.length && !e.repeat) {
-        if (menusVisible) closeActiveMenu()
-        setMenusVisible(!menusVisible)
-      }
-    }
-
-    document.addEventListener('keydown', handleKeyDown)
-    return () => document.removeEventListener('keydown', handleKeyDown)
-  }, [menusVisible, closeActiveMenu, setMenusVisible, menuItems])
 
   return (
     <div className={`window-titlebar ${wcontext?.platform ? `platform-${wcontext.platform}` : ''}`}>
@@ -38,11 +23,9 @@ export const Titlebar = () => {
       <div
         className="window-titlebar-title"
         {...(titleCentered && { 'data-centered': true })}
-        style={{ visibility: menusVisible ? 'hidden' : 'visible' }}
       >
         {title}
       </div>
-      {menusVisible && <TitlebarMenu />}
       {wcontext?.platform === 'win32' && <TitlebarControls />}
     </div>
   )
@@ -85,5 +68,4 @@ export interface TitlebarProps {
   title: string
   titleCentered?: boolean
   icon?: string
-  menuItems?: TitlebarMenu[]
 }
