@@ -1,8 +1,8 @@
-import './styles/app.css'
+import { createFileRoute } from '@tanstack/react-router'
 import { useState } from 'react'
-import { Button } from './components/ui/button'
-import { Input } from './components/ui/input'
-import { Label } from './components/ui/label'
+import { Button } from '../components/ui/button'
+import { Input } from '../components/ui/input'
+import { Label } from '../components/ui/label'
 import {
   Card,
   CardContent,
@@ -10,19 +10,15 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from './components/ui/card'
-import { Separator } from './components/ui/separator'
-import { RouterProvider, createRouter, createHashHistory } from '@tanstack/react-router'
-import { routeTree } from './routeTree.gen'
+} from '../components/ui/card'
+import { Separator } from '../components/ui/separator'
 
-const router = createRouter({
-  routeTree,
-  history: createHashHistory(),
+export const Route = createFileRoute('/')({
+  component: Home,
 })
 
-export default function App() {
+function Home() {
   const [name, setName] = useState('')
-return  <RouterProvider router={router}/>
 
   return (
     <div className="min-h-full w-full bg-background text-foreground p-6">
@@ -30,7 +26,7 @@ return  <RouterProvider router={router}/>
         <Card>
           <CardHeader>
             <CardTitle>Welcome</CardTitle>
-            <CardDescription>A quick ShadCN UI check inside Electron + Vite.</CardDescription>
+            <CardDescription>A quick ShadCN UI check inside Electron + Vite with TanStack Router.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="grid w-full max-w-sm items-center gap-2">
@@ -44,7 +40,7 @@ return  <RouterProvider router={router}/>
             </div>
             <Separator />
             <p className="text-sm text-muted-foreground">
-              This template uses Tailwind v4 and ShadCN-style components.
+              This template uses Tailwind v4, ShadCN-style components, and TanStack Router.
             </p>
           </CardContent>
           <CardFooter className="justify-between">

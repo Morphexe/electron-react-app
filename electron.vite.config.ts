@@ -2,6 +2,7 @@ import { resolve } from 'path'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 import { defineConfig, externalizeDepsPlugin } from 'electron-vite'
+import { tanstackRouter } from '@tanstack/router-plugin/vite'
 
 // Shared alias configuration
 const aliases = {
@@ -49,6 +50,9 @@ export default defineConfig({
     resolve: {
       alias: aliases,
     },
-    plugins: [tailwindcss(), react()],
+    plugins: [tailwindcss(), react(), tanstackRouter({
+      routesDirectory: './app/routes',
+      generatedRouteTree: './app/routeTree.gen.ts',
+    })],
   },
 })
