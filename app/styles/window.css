@@ -200,6 +200,19 @@
   color: var(--window-c-control-close-hover-text, inherit);
 }
 
+.titlebar-controlIcon {
+  opacity: 0.8;
+  transition: opacity 0.2s ease;
+}
+
+.titlebar-controlButton:hover .titlebar-controlIcon {
+  opacity: 1;
+}
+
+.titlebar-controlButton[aria-label='close']:hover .titlebar-controlIcon {
+  color: var(--window-c-control-close-hover-text, inherit);
+}
+
 /* Custom scrollbar for window content */
 .window-content::-webkit-scrollbar {
   width: var(--window-scrollbar-width);

@@ -1,11 +1,6 @@
 import { useWindowContext } from './WindowContext'
 import { useConveyor } from '@/app/hooks/use-conveyor'
-
-const SVG_PATHS = {
-  close: 'M 0,0 0,0.7 4.3,5 0,9.3 0,10 0.7,10 5,5.7 9.3,10 10,10 10,9.3 5.7,5 10,0.7 10,0 9.3,0 5,4.3 0.7,0 Z',
-  maximize: 'M 0,0 0,10 10,10 10,0 Z M 1,1 9,1 9,9 1,9 Z',
-  minimize: 'M 0,5 10,5 10,6 0,6 Z',
-} as const
+import { Minimize2, Maximize2, X } from 'lucide-react'
 
 export const Titlebar = () => {
   const { title, icon, titleCentered } = useWindowContext().titlebar
@@ -26,7 +21,7 @@ export const Titlebar = () => {
       >
         {title}
       </div>
-      {wcontext?.platform === 'win32' && <TitlebarControls />}
+      {<TitlebarControls />}
     </div>
   )
 }
@@ -36,14 +31,14 @@ const TitlebarControls = () => {
 
   return (
     <div className="window-titlebar-controls">
-      {wcontext?.minimizable && <TitlebarControlButton label="minimize" svgPath={SVG_PATHS.minimize} />}
-      {wcontext?.maximizable && <TitlebarControlButton label="maximize" svgPath={SVG_PATHS.maximize} />}
-      <TitlebarControlButton label="close" svgPath={SVG_PATHS.close} />
+      {wcontext?.minimizable && <TitlebarControlButton label="minimize" icon={Minimize2} />}
+      {wcontext?.maximizable && <TitlebarControlButton label="maximize" icon={Maximize2} />}
+      <TitlebarControlButton label="close" icon={X} />
     </div>
   )
 }
 
-const TitlebarControlButton = ({ svgPath, label }: { svgPath: string; label: string }) => {
+const TitlebarControlButton = ({ icon: Icon, label }: { icon: React.ComponentType<{ size?: number; className?: string }>; label: string }) => {
   const { windowMinimize, windowMaximizeToggle, windowClose } = useConveyor('window')
 
   const handleAction = () => {
@@ -57,9 +52,7 @@ const TitlebarControlButton = ({ svgPath, label }: { svgPath: string; label: str
 
   return (
     <div aria-label={label} className="titlebar-controlButton" onClick={handleAction}>
-      <svg width="10" height="10">
-        <path fill="currentColor" d={svgPath} />
-      </svg>
+      <Icon size={16} className="titlebar-controlIcon" />
     </div>
   )
 }
