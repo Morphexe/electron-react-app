@@ -1,15 +1,10 @@
-import { contextBridge } from 'electron'
-import { conveyor } from '@/lib/conveyor/api'
+import { exposeElectronTRPC } from 'trpc-electron/main'
 
-// Use `contextBridge` APIs to expose APIs to
-// renderer only if context isolation is enabled, otherwise
-// just add to the DOM global.
-if (process.contextIsolated) {
+// Expose tRPC IPC bridge to the renderer
+process.once('loaded', async () => {
   try {
-    contextBridge.exposeInMainWorld('conveyor', conveyor)
+    exposeElectronTRPC()
   } catch (error) {
     console.error(error)
   }
-} else {
-  window.conveyor = conveyor
-}
+})

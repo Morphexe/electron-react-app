@@ -1,10 +1,10 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 import { Titlebar, TitlebarProps } from './Titlebar'
 import { TitlebarContextProvider } from './TitlebarContext'
-import type { ChannelReturn } from '@/lib/conveyor/schemas'
 import { useConveyor } from '@/app/hooks/use-conveyor'
+import { trpcClient } from '@/app/trpc/client'
 
-type WindowInitProps = ChannelReturn<'window-init'>
+type WindowInitProps = Awaited<ReturnType<typeof trpcClient.window.windowInit.query>>
 
 interface WindowContextProps {
   titlebar: TitlebarProps
@@ -19,7 +19,6 @@ export const WindowContextProvider = ({
     title: 'Electron React App',
     icon: 'appIcon.png',
     titleCentered: false,
-    menuItems: [],
   },
 }: {
   children: React.ReactNode
