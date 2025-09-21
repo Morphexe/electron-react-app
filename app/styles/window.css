@@ -79,6 +79,7 @@
   color: var(--window-c-text);
   transition: background-color var(--window-background-transition-duration) ease;
   border-bottom: 1px solid var(--window-c-titlebar-border);
+  padding: 0 12px;
 }
 
 .window-titlebar-icon {
@@ -105,6 +106,11 @@
   margin-left: var(--window-title-margin);
   font-weight: var(--window-titlebar-font-weight, normal);
   padding-left: 4px;
+  letter-spacing: 0.015em;
+  text-shadow: 0 1px 1px var(--window-c-text-shadow);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .window-titlebar-title[data-centered] {
@@ -116,9 +122,11 @@
 .window-titlebar-controls {
   display: flex;
   position: absolute;
-  right: 0;
-  top: 0;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
   -webkit-app-region: no-drag;
+  gap: 4px;
 }
 
 .window-titlebar-menu {
@@ -189,6 +197,8 @@
   height: 30px;
   cursor: pointer;
   background-color: transparent;
+  border-radius: 6px;
+  transition: background-color 0.15s ease;
 }
 
 .titlebar-controlButton:hover {
@@ -203,6 +213,7 @@
 .titlebar-controlIcon {
   opacity: 0.8;
   transition: opacity 0.2s ease;
+  display: block;
 }
 
 .titlebar-controlButton:hover .titlebar-controlIcon {
